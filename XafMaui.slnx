@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="XafMaui/XafMaui.csproj">
+    <Deploy />
+  </Project>
+</Solution>
