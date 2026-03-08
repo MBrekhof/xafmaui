@@ -10,6 +10,10 @@ namespace XafMaui.Module.BusinessObjects
     [DefaultProperty(nameof(UserName))]
     public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo, ISecurityUserLockout
     {
+        public virtual string? DisplayName { get; set; }
+        public virtual string? Phone { get; set; }
+        public virtual AppRole AppRole { get; set; }
+
         [Browsable(false)]
         public virtual int AccessFailedCount { get; set; }
 

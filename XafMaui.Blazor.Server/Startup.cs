@@ -49,8 +49,13 @@ namespace XafMaui.Blazor.Server
                 {
                     webApiBuilder.ConfigureOptions(options =>
                     {
-                        // Make your business objects available in the Web API and generate the GET, POST, PUT, and DELETE HTTP methods for it.
-                        // options.BusinessObject<YourBusinessObject>();
+                        options.BusinessObject<XafMaui.Module.BusinessObjects.Address>();
+                        options.BusinessObject<XafMaui.Module.BusinessObjects.Client>();
+                        options.BusinessObject<XafMaui.Module.BusinessObjects.ContactPerson>();
+                        options.BusinessObject<XafMaui.Module.BusinessObjects.Project>();
+                        options.BusinessObject<XafMaui.Module.BusinessObjects.ProjectTask>();
+                        options.BusinessObject<XafMaui.Module.BusinessObjects.ProjectAssignment>();
+                        options.BusinessObject<XafMaui.Module.BusinessObjects.TimeEntry>();
                     });
                 });
 
