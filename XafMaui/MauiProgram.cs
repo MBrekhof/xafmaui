@@ -1,6 +1,8 @@
 using DevExpress.Maui;
 using DevExpress.Maui.Core;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using XafMaui.Services;
+using XafMaui.Views;
 
 namespace XafMaui
 {
@@ -28,8 +30,23 @@ namespace XafMaui
                     fonts.AddFont("roboto-medium.ttf", "Roboto-Medium");
                     fonts.AddFont("roboto-regular.ttf", "Roboto");
                 });
+
+            // HTTP client (dev cert validation disabled in debug)
+            builder.Services.AddSingleton(_ =>
+            {
+                var handler = new HttpClientHandler();
+#if DEBUG
+                handler.ServerCertificateCustomValidationCallback = (_, _, _, _) => true;
+#endif
+                return new HttpClient(handler);
+            });
+
+            builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddSingleton<ApiClient>();
+            builder.Services.AddSingleton<SyncService>();
+            builder.Services.AddTransient<LoginPage>();
+
             return builder.Build();
         }
-
     }
 }

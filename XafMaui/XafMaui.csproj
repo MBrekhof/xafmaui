@@ -50,6 +50,7 @@
     <PackageReference Include="DevExpress.Maui.Scheduler" Version="25.2.*" />
     <PackageReference Include="DevExpress.Maui.Gauges" Version="25.2.*" />
     <PackageReference Include="DevExpress.Maui.Charts" Version="25.2.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.*" />
   </ItemGroup>
 
   <ItemGroup>

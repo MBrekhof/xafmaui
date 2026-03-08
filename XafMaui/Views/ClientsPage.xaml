@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XafMaui.Views.ClientsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    xmlns:vm="clr-namespace:XafMaui.ViewModels"
+    Title="Clients">
+
+    <ContentPage.BindingContext>
+        <vm:ClientsViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto,*" Padding="8">
+        <dx:TextEdit
+            Grid.Row="0"
+            PlaceholderText="Search clients..."
+            Text="{Binding SearchText}"
+            Margin="0,0,0,8" />
+
+        <dxcv:DXCollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Clients}"
+            Tap="OnClientTapped">
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="12,8" ColumnDefinitions="*,Auto">
+                        <StackLayout>
+                            <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" />
+                            <Label Text="{Binding CompanyName}" FontSize="13" TextColor="Gray" />
+                        </StackLayout>
+                        <Label Grid.Column="1" Text="{Binding Phone}" FontSize="13"
+                               VerticalOptions="Center" TextColor="Gray" />
+                    </Grid>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+    </Grid>
+</ContentPage>

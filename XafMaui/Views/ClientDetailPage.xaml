@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XafMaui.Views.ClientDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    Title="Client Details">
+
+    <ScrollView Padding="16">
+        <dx:DXStackLayout ItemSpacing="12">
+            <!-- Company Info -->
+            <Label Text="Company Info" FontAttributes="Bold" FontSize="18" />
+            <Label x:Name="nameLabel" FontSize="16" />
+            <Label x:Name="companyLabel" FontSize="14" TextColor="Gray" />
+            <Label x:Name="vatLabel" FontSize="14" TextColor="Gray" />
+            <Label x:Name="emailLabel" FontSize="14" />
+            <Label x:Name="phoneLabel" FontSize="14" />
+
+            <!-- Billing Address -->
+            <Label Text="Billing Address" FontAttributes="Bold" FontSize="18" Margin="0,12,0,0" />
+            <Label x:Name="billingAddressLabel" FontSize="14" TextColor="Gray" />
+
+            <!-- Visit Address -->
+            <Label Text="Visit Address" FontAttributes="Bold" FontSize="18" Margin="0,12,0,0" />
+            <Label x:Name="visitAddressLabel" FontSize="14" TextColor="Gray" />
+
+            <!-- Contact Persons -->
+            <Label Text="Contact Persons" FontAttributes="Bold" FontSize="18" Margin="0,12,0,0" />
+            <dxcv:DXCollectionView
+                x:Name="contactsView"
+                HeightRequest="200">
+                <dxcv:DXCollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="8,4" ColumnDefinitions="*,Auto">
+                            <StackLayout>
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="14" />
+                                <Label Text="{Binding JobTitle}" FontSize="12" TextColor="Gray" />
+                                <Label Text="{Binding Email}" FontSize="12" TextColor="Gray" />
+                            </StackLayout>
+                            <Label Grid.Column="1" Text="{Binding Phone}" FontSize="12"
+                                   VerticalOptions="Center" TextColor="Gray" />
+                        </Grid>
+                    </DataTemplate>
+                </dxcv:DXCollectionView.ItemTemplate>
+            </dxcv:DXCollectionView>
+        </dx:DXStackLayout>
+    </ScrollView>
+</ContentPage>

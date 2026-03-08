@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XafMaui.Views.AddTimeEntryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    Title="Add Time Entry">
+
+    <ScrollView Padding="16">
+        <dx:DXStackLayout ItemSpacing="16">
+            <dx:ComboBoxEdit
+                x:Name="projectPicker"
+                LabelText="Project"
+                DisplayMember="Name"
+                SelectedIndexChanged="OnProjectSelected" />
+
+            <dx:ComboBoxEdit
+                x:Name="taskPicker"
+                LabelText="Task"
+                DisplayMember="Name" />
+
+            <dx:NumericEdit
+                x:Name="hoursEdit"
+                LabelText="Hours"
+                Value="1"
+                MinValue="0.25"
+                MaxValue="24"
+                StepValue="0.25" />
+
+            <dx:TextEdit
+                x:Name="noteEdit"
+                LabelText="Note"
+                PlaceholderText="Optional note" />
+
+            <dx:DXButton
+                Content="Save"
+                Clicked="OnSaveClicked" />
+        </dx:DXStackLayout>
+    </ScrollView>
+</ContentPage>

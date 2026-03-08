@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XafMaui.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    Title="Login"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="2*,3*,2*" Padding="32">
+        <dx:DXStackLayout Grid.Row="1" ItemSpacing="16">
+            <Label
+                FontAttributes="Bold"
+                FontFamily="Roboto Medium"
+                FontSize="28"
+                Text="XafMaui"
+                HorizontalOptions="Center"
+                TextColor="{dx:ThemeColor Key=Primary}" />
+            <dx:TextEdit
+                x:Name="userNameEdit"
+                LabelText="User Name"
+                PlaceholderText="Enter user name" />
+            <dx:PasswordEdit
+                x:Name="passwordEdit"
+                LabelText="Password"
+                PlaceholderText="Enter password" />
+            <Label
+                x:Name="errorLabel"
+                TextColor="Red"
+                IsVisible="False"
+                HorizontalOptions="Center" />
+            <dx:DXButton
+                x:Name="loginButton"
+                Content="Sign In"
+                Clicked="OnLoginClicked" />
+        </dx:DXStackLayout>
+    </Grid>
+</ContentPage>

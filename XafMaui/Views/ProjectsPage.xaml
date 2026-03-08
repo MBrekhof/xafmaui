@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XafMaui.Views.ProjectsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    xmlns:vm="clr-namespace:XafMaui.ViewModels"
+    Title="Projects">
+
+    <ContentPage.BindingContext>
+        <vm:ProjectsViewModel />
+    </ContentPage.BindingContext>
+
+    <CollectionView ItemsSource="{Binding ProjectGroups}" Padding="8" IsGrouped="True">
+        <CollectionView.GroupHeaderTemplate>
+            <DataTemplate>
+                <Label Text="{Binding StatusName}" FontAttributes="Bold" FontSize="16"
+                       Padding="8,12,8,4" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+            </DataTemplate>
+        </CollectionView.GroupHeaderTemplate>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Grid Padding="12,8" ColumnDefinitions="*,Auto">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnProjectTapped" />
+                    </Grid.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="15" />
+                        <Label Text="{Binding ClientName}" FontSize="12" TextColor="Gray" />
+                    </StackLayout>
+                    <Label Grid.Column="1" Text="{Binding BudgetHours, StringFormat='{0:F0}h'}"
+                           FontSize="13" VerticalOptions="Center" TextColor="Gray" />
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>

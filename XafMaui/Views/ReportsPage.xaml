@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XafMaui.Views.ReportsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    xmlns:dxc="clr-namespace:DevExpress.Maui.Charts;assembly=DevExpress.Maui.Charts"
+    xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges"
+    xmlns:vm="clr-namespace:XafMaui.ViewModels"
+    Title="Reports">
+
+    <ContentPage.BindingContext>
+        <vm:ReportsViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView Padding="8">
+        <dx:DXStackLayout ItemSpacing="16">
+            <!-- My Week -->
+            <Label Text="My Week" FontAttributes="Bold" FontSize="18" />
+            <dxc:ChartView HeightRequest="200">
+                <dxc:ChartView.Series>
+                    <dxc:BarSeries DisplayName="Hours">
+                        <dxc:BarSeries.Data>
+                            <dxc:SeriesDataAdapter DataSource="{Binding WeeklyHours}"
+                                                   ArgumentDataMember="Day">
+                                <dxc:ValueDataMember Type="Value" Member="Hours" />
+                            </dxc:SeriesDataAdapter>
+                        </dxc:BarSeries.Data>
+                    </dxc:BarSeries>
+                </dxc:ChartView.Series>
+            </dxc:ChartView>
+
+            <!-- Project selector -->
+            <Label Text="Project Report" FontAttributes="Bold" FontSize="18" Margin="0,8,0,0" />
+            <dx:ComboBoxEdit
+                ItemsSource="{Binding Projects}"
+                SelectedItem="{Binding SelectedProject}"
+                DisplayMember="Name"
+                LabelText="Select Project" />
+
+            <!-- Estimated vs Actual -->
+            <dxc:ChartView HeightRequest="200">
+                <dxc:ChartView.Series>
+                    <dxc:BarSeries DisplayName="Estimated">
+                        <dxc:BarSeries.Data>
+                            <dxc:SeriesDataAdapter DataSource="{Binding TaskBreakdown}"
+                                                   ArgumentDataMember="TaskName">
+                                <dxc:ValueDataMember Type="Value" Member="Estimated" />
+                            </dxc:SeriesDataAdapter>
+                        </dxc:BarSeries.Data>
+                    </dxc:BarSeries>
+                    <dxc:BarSeries DisplayName="Actual">
+                        <dxc:BarSeries.Data>
+                            <dxc:SeriesDataAdapter DataSource="{Binding TaskBreakdown}"
+                                                   ArgumentDataMember="TaskName">
+                                <dxc:ValueDataMember Type="Value" Member="Actual" />
+                            </dxc:SeriesDataAdapter>
+                        </dxc:BarSeries.Data>
+                    </dxc:BarSeries>
+                </dxc:ChartView.Series>
+            </dxc:ChartView>
+
+            <!-- Budget Burn Gauge -->
+            <Label Text="Budget Burn" FontAttributes="Bold" FontSize="18" Margin="0,8,0,0" />
+            <dxga:RadialGauge HeightRequest="200">
+                <dxga:RadialScale StartValue="0" EndValue="100"
+                                  MajorTickmarkStep="25" MinorTickmarkCount="4">
+                    <dxga:RadialScale.Ranges>
+                        <dxga:QualitativeRange Color="Green" StartValue="0" EndValue="60" />
+                        <dxga:QualitativeRange Color="Orange" StartValue="60" EndValue="85" />
+                        <dxga:QualitativeRange Color="Red" StartValue="85" EndValue="100" />
+                    </dxga:RadialScale.Ranges>
+                    <dxga:RadialScale.Markers>
+                        <dxga:MarkerIndicator Value="{Binding BudgetBurnPercent}" />
+                    </dxga:RadialScale.Markers>
+                </dxga:RadialScale>
+            </dxga:RadialGauge>
+            <Label Text="{Binding BudgetBurnPercent, StringFormat='Budget consumed: {0:F0}%'}"
+                   HorizontalOptions="Center" FontSize="14" />
+        </dx:DXStackLayout>
+    </ScrollView>
+</ContentPage>

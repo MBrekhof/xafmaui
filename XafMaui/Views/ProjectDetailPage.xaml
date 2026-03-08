@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XafMaui.Views.ProjectDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    Title="Project Details">
+
+    <ScrollView Padding="16">
+        <dx:DXStackLayout ItemSpacing="8">
+            <Label x:Name="projectName" FontAttributes="Bold" FontSize="20" />
+            <Label x:Name="projectDescription" FontSize="14" TextColor="Gray" />
+            <Label x:Name="budgetLabel" FontSize="14" />
+            <ProgressBar x:Name="progressBar" Margin="0,8" />
+            <Label x:Name="progressLabel" FontSize="13" TextColor="Gray" />
+
+            <Label Text="Tasks" FontAttributes="Bold" FontSize="18" Margin="0,16,0,4" />
+            <dxcv:DXCollectionView x:Name="tasksView" HeightRequest="400">
+                <dxcv:DXCollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="8,6" RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                            <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="14" />
+                            <Label Grid.Column="1" Text="{Binding HoursDisplay}" FontSize="13" TextColor="Gray" />
+                            <ProgressBar Grid.Row="1" Grid.ColumnSpan="2"
+                                         Progress="{Binding ProgressPercent}" Margin="0,4,0,0" />
+                        </Grid>
+                    </DataTemplate>
+                </dxcv:DXCollectionView.ItemTemplate>
+            </dxcv:DXCollectionView>
+        </dx:DXStackLayout>
+    </ScrollView>
+</ContentPage>
