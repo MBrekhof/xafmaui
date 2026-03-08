@@ -3,32 +3,29 @@
 ## Last Session: 2026-03-08
 
 ### What was done
-- Created XAF Blazor Server project (XafMaui.Blazor.Server + XafMaui.Module) from DevExpress template
-- Retargeted from net8.0 to net9.0 (XAF 25.2 supports .NET 9 runtime)
-- Replaced Swashbuckle/Swagger with Scalar for API docs
-- Created separate solution file `XafMaui.Xaf.slnx` (coexists with `XafMaui.slnx` for MAUI)
-- Set up SQL Server 2022 Docker container (`xafmaui-sql`, port 1434, SA password `XafMaui@2026`)
-- Configured connection string in appsettings.json
-- XAF solution builds successfully (0 errors, 0 warnings)
-- Designed the full MVP: data model, API, MAUI screens, security roles, offline storage
-- Wrote design doc: `docs/plans/2026-03-08-project-admin-mvp-design.md`
-- Wrote implementation plan: `docs/plans/2026-03-08-project-admin-mvp-plan.md` (28 tasks, 5 phases)
-- Created CLAUDE.md, TODO.md, SESSION_HANDOFF.md, README.md
-- Initialized git repo, created public GitHub remote
+- Completed Phase 1-4 (Tasks 1-25) of the MVP implementation plan
+- XAF backend: all 9 business entities, 4 security roles, Web API registration, seed users
+- MAUI app: full UI with 4 tabs (Clients, Day Sheet, Projects, Reports), login page, SQLite offline storage, API client with JWT auth, sync service
+- Both solutions build successfully (0 errors)
+- All code committed and pushed to https://github.com/MBrekhof/xafmaui
 
 ### What's next
-- Start Phase 1, Task 1: Add BaseObjectInt base class
-- Work through Phase 1-2 (Tasks 1-12) to get XAF backend running with all entities and security
-- Then Phase 3-5 for MAUI app
+- Task 12: Run XAF app and verify database creation + API endpoints via Scalar
+- Task 26: Add pull-to-refresh on list pages
+- Task 27: Add logout functionality
+- Task 28: End-to-end verification (XAF + MAUI together)
+- Start Docker SQL Server: `docker start xafmaui-sql`
+- Run XAF: `dotnet run --project XafMaui.Blazor.Server`
 
 ### Decisions made
-- `BaseObjectInt` (int key) for all custom entities, copied from XafSearch project pattern
-- `ApplicationUser` keeps Guid key (inherits from `PermissionPolicyUser`)
-- EF Core `OwnsOne` not supported by XAF — Address is a separate entity
-- Invoicing is out of scope (future phase)
-- DevExpress components only, unless DevExpress doesn't provide it
-- SQLite in MAUI for offline: sync-down reference data, bidirectional for time entries
-- Four roles: Admin, ProjectManager, Consultant, BackOffice
+- Used file-scoped namespaces for all new files
+- Enabled nullable in Module project
+- DevExpress MAUI CollectionView namespace: `dxcv:DXCollectionView` (not `dx:DXCollectionView`)
+- DevExpress MAUI DataGrid namespace: `dxg:DataGridView`
+- DevExpress MAUI Charts namespace: `dxc:ChartView`
+- DevExpress MAUI Gauges namespace: `dxga:RadialGauge`
+- `DisplayAlert` → `DisplayAlertAsync` in .NET 10 MAUI
+- Projects tab uses MAUI `CollectionView` with `IsGrouped` (not DXCollectionView) for grouped display
 
 ### Blockers
-- None
+- None. Ready for integration testing.
