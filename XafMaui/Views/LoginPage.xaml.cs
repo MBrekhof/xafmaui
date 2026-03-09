@@ -16,7 +16,7 @@ public partial class LoginPage : ContentPage
 
     async void OnLoginClicked(object sender, EventArgs e)
     {
-        errorLabel.IsVisible = false;
+        userNameEdit.HasError = false;
         loginButton.IsEnabled = false;
 
         try
@@ -32,14 +32,13 @@ public partial class LoginPage : ContentPage
             }
             else
             {
-                errorLabel.Text = "Invalid credentials";
-                errorLabel.IsVisible = true;
+                userNameEdit.ErrorText = "Invalid user name or password";
+                userNameEdit.HasError = true;
             }
         }
         catch (Exception ex)
         {
-            errorLabel.Text = $"Connection error: {ex.Message}";
-            errorLabel.IsVisible = true;
+            await DisplayAlertAsync("Connection Error", ex.Message, "OK");
         }
 
         loginButton.IsEnabled = true;

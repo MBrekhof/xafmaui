@@ -24,11 +24,6 @@
                 x:Name="passwordEdit"
                 LabelText="Password"
                 PlaceholderText="Enter password" />
-            <Label
-                x:Name="errorLabel"
-                TextColor="Red"
-                IsVisible="False"
-                HorizontalOptions="Center" />
             <dx:DXButton
                 x:Name="loginButton"
                 Content="Sign In"
