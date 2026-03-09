@@ -12,7 +12,7 @@
                 x:Name="projectPicker"
                 LabelText="Project"
                 DisplayMember="Name"
-                SelectedIndexChanged="OnProjectSelected" />
+                SelectionChanged="OnProjectSelected" />
 
             <dx:ComboBoxEdit
                 x:Name="taskPicker"
