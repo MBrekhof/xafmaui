@@ -30,10 +30,9 @@
             AllowEditRows="False"
             AllowDeleteRows="False">
             <dxg:DataGridView.Columns>
-                <dxg:TextColumn FieldName="ProjectName" Caption="Project" Width="120" />
-                <dxg:TextColumn FieldName="ProjectTaskName" Caption="Task" Width="120" />
-                <dxg:NumberColumn FieldName="Hours" Caption="Hours" Width="70" />
-                <dxg:TextColumn FieldName="Note" Caption="Note" />
+                <dxg:TextColumn FieldName="ProjectName" Caption="Project" Width="*" MinWidth="100" />
+                <dxg:TextColumn FieldName="ProjectTaskName" Caption="Task" Width="*" MinWidth="100" />
+                <dxg:NumberColumn FieldName="Hours" Caption="Hrs" Width="60" />
             </dxg:DataGridView.Columns>
         </dxg:DataGridView>
 

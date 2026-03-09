@@ -113,7 +113,8 @@ public class SyncService
 
     public async Task PullTimeEntriesAsync()
     {
-        var entries = await _api.GetListAsync<TimeEntryDto>("TimeEntry", "$orderby=Date desc&$top=100");
+        var entries = await _api.GetListAsync<TimeEntryDto>("TimeEntry",
+            "$orderby=Date desc&$top=100&$expand=ProjectTask($select=Name;$expand=Project($select=Name))");
         using var db = new LocalDbContext();
 
         var nonPending = db.TimeEntries.Where(t => !t.IsPendingSync).ToList();
@@ -127,7 +128,8 @@ public class SyncService
                 {
                     ServerID = e.ID, Date = e.Date, Hours = e.Hours, Note = e.Note,
                     Status = (int)e.Status, ProjectTaskID = e.ProjectTaskID,
-                    ProjectTaskName = e.ProjectTaskName, ProjectName = e.ProjectName,
+                    ProjectTaskName = e.ProjectTask?.Name,
+                    ProjectName = e.ProjectTask?.Project?.Name,
                     IsPendingSync = false,
                 });
             }
