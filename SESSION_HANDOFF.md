@@ -3,32 +3,30 @@
 ## Last Session: 2026-03-09
 
 ### What was done
-- All 28 MVP tasks complete and verified end-to-end on physical Android device
-- Comprehensive seed data: 8 clients, 14 contacts, 9 projects, 30+ tasks, ~100 time entries
-- Fixed multiple integration issues discovered during device testing:
-  - `BlazorApplication.cs` — removed `Debugger.IsAttached` guard for DB auto-creation
-  - Decimal precision warnings — added `HasPrecision(18, 2)` in `OnModelCreating`
-  - OData `$top=200` exceeded server limit — reduced to 100
-  - `JsonStringEnumConverter` — OData returns enums as strings, `System.Text.Json` expected numbers
-  - TimeEntry sync missing Project/Task names — added `$expand=ProjectTask($expand=Project)`
-  - Day Sheet grid — removed Note column, flex-width Project/Task columns for mobile
-- Installed 34 .NET MAUI skills from davidortinau/maui-skills into `~/.claude/skills/`
+- **Material 3 theme**: Applied TealGreen seed color via `ThemeManager.Theme = new Theme(ThemeSeedColor.TealGreen)` in `MauiProgram.cs`
+- **Day Sheet BottomSheet**: Tap any time entry row to see a slide-up detail panel showing Project, Task, Hours, Status, and Notes. Uses DevExpress `dx:BottomSheet` with `HalfExpandedRatio="0.45"`, controlled from code-behind via `detailSheet.State = BottomSheetState.HalfExpanded`
+- **Server-side PDF reports**: Created `ProjectReportController` with two endpoints:
+  - `GET /api/ProjectReport/WeeklyTimesheet?weekStart=yyyy-MM-dd` — time entries grouped by day
+  - `GET /api/ProjectReport/ProjectBudget` — all active/on-hold projects with budget vs actual
+  Reports are generated programmatically using XtraReports (no stored report definitions needed)
+- Added `GetBytesAsync()` to `ApiClient` for raw byte downloads
+- MAUI Reports tab now has "Download Weekly Timesheet" and "Download Project Budget Report" buttons that fetch PDFs and open with system viewer via `Launcher.OpenAsync`
+- Previous session's features still in place: all 28 MVP tasks, seed data, pull-to-refresh, logout
 
 ### What's next
-- UI polish: empty state messages, loading indicators
+- Deploy latest to phone and test all three new features
 - Time entry creation flow (Add button on Day Sheet)
 - Test all 4 user roles (Admin, Manager, Consultant, BackOffice)
 - Deploy XAF backend to Docker for persistent hosting
 
 ### Decisions made
-- `$top` limited to 100 per OData server default
-- Physical device testing uses machine IP `192.168.50.73` in `ApiConfig.cs`
-- `launchSettings.json` binds to `0.0.0.0` for LAN access (gitignored)
-- OData enum deserialization uses `JsonStringEnumConverter` globally on `ApiClient`
-- Seed data is idempotent (checks for existing "Contoso Ltd" client)
-- Day Sheet grid hides Note column on mobile — too cramped
-- TimeEntry DTO uses nested `ProjectTask.Project` structure matching OData `$expand`
-- Two extra consultant users seeded: Sarah Johnson, Mike Chen (empty passwords)
+- Used `TealGreen` from `ThemeSeedColor` enum (not custom color) for M3 theme
+- BottomSheet controlled from code-behind (not MVVM binding) — simpler, no converter needed
+- PDF reports use programmatic XtraReport generation, not stored ReportDataV2 definitions
+- `ProjectReportController` uses `IObjectSpaceFactory` for EF Core data access with XAF security
+- Reports open via `Launcher.OpenAsync` with system PDF viewer (no in-app viewer)
+- Existing `ReportController.cs` (DownloadByName/DownloadByKey) left unchanged — requires stored report definitions
 
 ### Blockers
 - Visual Studio locks Android build output — must close VS or stop debug before CLI build
+- XAF server must be restarted after code changes to `ProjectReportController`

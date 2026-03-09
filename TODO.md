@@ -40,3 +40,11 @@ See `docs/plans/2026-03-08-project-admin-mvp-plan.md` for full plan details.
 - [x] Task 26: Add pull-to-refresh on all list pages
 - [x] Task 27: Add logout functionality
 - [x] Task 28: Verify end-to-end flow
+
+## Phase 6: UI Polish & Advanced Features
+- [x] Task 29: Material 3 theming (TealGreen seed color)
+- [x] Task 30: BottomSheet for Day Sheet time entry details
+- [x] Task 31: Server-side PDF reports (Weekly Timesheet, Project Budget)
+- [ ] Task 32: Time entry creation flow (Add button on Day Sheet)
+- [ ] Task 33: Test all 4 user roles
+- [ ] Task 34: Deploy XAF backend to Docker
