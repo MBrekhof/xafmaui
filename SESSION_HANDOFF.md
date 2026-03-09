@@ -3,29 +3,31 @@
 ## Last Session: 2026-03-09
 
 ### What was done
-- Task 12: Verified XAF app runs, database auto-creates, all OData endpoints work, JWT auth works, Scalar API docs accessible
-  - Fixed `BlazorApplication.cs` — removed `Debugger.IsAttached` guard, now uses `#if DEBUG` so DB auto-creates with `dotnet run`
-  - Added `HasPrecision(18, 2)` for decimal properties (BudgetHours, EstimatedHours, Hours) in `OnModelCreating`
+- All 28 tasks complete — MVP is functional end-to-end
+- Task 12: Verified XAF app runs, DB auto-creates, all OData endpoints work, JWT auth works
 - Task 26: Added pull-to-refresh on all list pages
-  - ClientsPage: DXCollectionView `IsPullToRefreshEnabled` → syncs clients from API
-  - DaySheetPage: DataGridView `IsPullToRefreshEnabled` → pushes pending + pulls time entries
-  - ProjectsPage: `RefreshView` wrapping `CollectionView` → syncs projects from API
-  - ReportsPage: `RefreshView` wrapping `ScrollView` → full sync
-- Task 27: Added logout functionality
-  - Toolbar item "Logout" (secondary/overflow menu) on AppShell
-  - Confirmation dialog, clears JWT token + local SQLite data, navigates back to LoginPage
-- Installed 34 .NET MAUI skills from davidortinau/maui-skills into `~/.claude/skills/`
-- Both solutions build with 0 warnings, 0 errors
+- Task 27: Added logout functionality via toolbar overflow menu
+- Task 28: End-to-end verification on physical Android device — login, sync, 4-tab UI all working
+- Fixed `BlazorApplication.cs` — removed `Debugger.IsAttached` guard for DB auto-creation
+- Fixed decimal precision warnings in `OnModelCreating`
+- Fixed OData `$top=200` → `$top=100` (server limit is 100)
+- Updated `ApiConfig.cs` to use machine IP `192.168.50.73` for physical device testing
+- Updated `launchSettings.json` to bind on `0.0.0.0` for network access
+- Installed 34 .NET MAUI skills from davidortinau/maui-skills
 
 ### What's next
-- Task 28: End-to-end verification (XAF + MAUI together on device/emulator)
-- All 28 tasks will be complete after Task 28
+- All planned MVP tasks are complete
+- Potential next steps:
+  - Add seed data (sample clients, projects) for demo
+  - Add real password for Admin user
+  - MAUI UI polish (icons, colors, empty state messages)
+  - Time entry creation flow testing
+  - Deploy XAF to Docker for persistent hosting
 
 ### Decisions made
-- Pull-to-refresh uses `SyncService` methods per page (not full sync on every page)
-- Logout uses `ToolbarItem Order="Secondary"` (overflow menu via three dots)
-- `DisplayAlertAsync` used instead of obsolete `DisplayAlert` (.NET 10 MAUI)
-- ViewModels resolve `SyncService` via `IPlatformApplication.Current.Services` since they're not DI-injected
+- `$top` limited to 100 per OData server default
+- Physical device testing uses machine IP in ApiConfig (not localhost/10.0.2.2)
+- Backend binds to 0.0.0.0 for LAN access during development
 
 ### Blockers
-- None. Ready for end-to-end testing on emulator/device.
+- None

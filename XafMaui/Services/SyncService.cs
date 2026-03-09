@@ -113,7 +113,7 @@ public class SyncService
 
     public async Task PullTimeEntriesAsync()
     {
-        var entries = await _api.GetListAsync<TimeEntryDto>("TimeEntry", "$orderby=Date desc&$top=200");
+        var entries = await _api.GetListAsync<TimeEntryDto>("TimeEntry", "$orderby=Date desc&$top=100");
         using var db = new LocalDbContext();
 
         var nonPending = db.TimeEntries.Where(t => !t.IsPendingSync).ToList();
