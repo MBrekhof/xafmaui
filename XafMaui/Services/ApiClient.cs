@@ -57,6 +57,15 @@ public class ApiClient
         response.EnsureSuccessStatusCode();
     }
 
+    public async Task<byte[]> GetBytesAsync(string relativePath)
+    {
+        await EnsureAuthHeaderAsync();
+        var url = $"{ApiConfig.BaseUrl}/api/{relativePath}";
+        var response = await _http.GetAsync(url);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadAsByteArrayAsync();
+    }
+
     public async Task DeleteAsync(string odataPath, int id)
     {
         await EnsureAuthHeaderAsync();

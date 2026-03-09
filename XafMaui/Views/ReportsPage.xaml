@@ -78,6 +78,13 @@
             </dxga:RadialGauge>
             <Label Text="{Binding BudgetBurnPercent, StringFormat='Budget consumed: {0:F0}%'}"
                    HorizontalOptions="Center" FontSize="14" />
+
+            <!-- PDF Reports -->
+            <Label Text="PDF Reports" FontAttributes="Bold" FontSize="18" Margin="0,16,0,0" />
+            <dx:DXButton Content="Download Weekly Timesheet" Clicked="OnDownloadTimesheetClicked" />
+            <dx:DXButton Content="Download Project Budget Report" Clicked="OnDownloadBudgetClicked" />
+            <ActivityIndicator x:Name="pdfSpinner" IsRunning="False" IsVisible="False"
+                               HorizontalOptions="Center" Margin="0,8" />
         </dx:DXStackLayout>
     </ScrollView>
     </RefreshView>
