@@ -11,6 +11,8 @@ namespace XafMaui
         public static MauiApp CreateMauiApp()
         {
             ThemeManager.ApplyThemeToSystemBars = true;
+            ThemeManager.UseAndroidSystemColor = false;
+            ThemeManager.Theme = new Theme(ThemeSeedColor.TealGreen);
             var builder = MauiApp.CreateBuilder()
                 .UseMauiApp<App>()
                 .UseDevExpress(useLocalization: false)
