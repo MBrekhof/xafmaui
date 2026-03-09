@@ -20,5 +20,6 @@
         <ShellContent Title="Day Sheet" Icon="calendar" ContentTemplate="{DataTemplate views:DaySheetPage}" />
         <ShellContent Title="Projects" Icon="folder" ContentTemplate="{DataTemplate views:ProjectsPage}" />
         <ShellContent Title="Reports" Icon="chart" ContentTemplate="{DataTemplate views:ReportsPage}" />
+        <ShellContent Title="Settings" Icon="gear" ContentTemplate="{DataTemplate views:SettingsPage}" />
     </TabBar>
 </Shell>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XafMaui.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    Title="Settings">
+
+    <ScrollView Padding="16">
+        <dx:DXStackLayout ItemSpacing="16">
+            <Label Text="Appearance" FontAttributes="Bold" FontSize="18" />
+
+            <dx:ComboBoxEdit
+                x:Name="themePicker"
+                LabelText="Theme Color"
+                DisplayMember="Name"
+                SelectionChanged="OnThemeChanged" />
+
+            <Grid x:Name="previewGrid" HeightRequest="60" Padding="16"
+                  HorizontalOptions="Fill">
+                <Label x:Name="previewLabel" Text="Theme Preview"
+                       VerticalOptions="Center" HorizontalOptions="Center"
+                       FontSize="16" FontAttributes="Bold" TextColor="White" />
+            </Grid>
+
+            <Label x:Name="restartHint" Text="Theme change takes effect on next app launch."
+                   FontSize="12" TextColor="Gray" IsVisible="False" />
+
+            <BoxView HeightRequest="1" Color="LightGray" Margin="0,8" />
+
+            <Label Text="About" FontAttributes="Bold" FontSize="18" />
+            <Label Text="XafMaui Project Administration" FontSize="14" />
+            <Label Text="Material Design 3 theming by DevExpress" FontSize="12" TextColor="Gray" />
+        </dx:DXStackLayout>
+    </ScrollView>
+</ContentPage>
