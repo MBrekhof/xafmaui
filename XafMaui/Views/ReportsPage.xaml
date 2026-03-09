@@ -13,6 +13,7 @@
         <vm:ReportsViewModel />
     </ContentPage.BindingContext>
 
+    <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
     <ScrollView Padding="8">
         <dx:DXStackLayout ItemSpacing="16">
             <!-- My Week -->
@@ -79,4 +80,5 @@
                    HorizontalOptions="Center" FontSize="14" />
         </dx:DXStackLayout>
     </ScrollView>
+    </RefreshView>
 </ContentPage>

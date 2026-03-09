@@ -1,31 +1,31 @@
 # Session Handoff
 
-## Last Session: 2026-03-08
+## Last Session: 2026-03-09
 
 ### What was done
-- Completed Phase 1-4 (Tasks 1-25) of the MVP implementation plan
-- XAF backend: all 9 business entities, 4 security roles, Web API registration, seed users
-- MAUI app: full UI with 4 tabs (Clients, Day Sheet, Projects, Reports), login page, SQLite offline storage, API client with JWT auth, sync service
-- Both solutions build successfully (0 errors)
-- All code committed and pushed to https://github.com/MBrekhof/xafmaui
+- Task 12: Verified XAF app runs, database auto-creates, all OData endpoints work, JWT auth works, Scalar API docs accessible
+  - Fixed `BlazorApplication.cs` — removed `Debugger.IsAttached` guard, now uses `#if DEBUG` so DB auto-creates with `dotnet run`
+  - Added `HasPrecision(18, 2)` for decimal properties (BudgetHours, EstimatedHours, Hours) in `OnModelCreating`
+- Task 26: Added pull-to-refresh on all list pages
+  - ClientsPage: DXCollectionView `IsPullToRefreshEnabled` → syncs clients from API
+  - DaySheetPage: DataGridView `IsPullToRefreshEnabled` → pushes pending + pulls time entries
+  - ProjectsPage: `RefreshView` wrapping `CollectionView` → syncs projects from API
+  - ReportsPage: `RefreshView` wrapping `ScrollView` → full sync
+- Task 27: Added logout functionality
+  - Toolbar item "Logout" (secondary/overflow menu) on AppShell
+  - Confirmation dialog, clears JWT token + local SQLite data, navigates back to LoginPage
+- Installed 34 .NET MAUI skills from davidortinau/maui-skills into `~/.claude/skills/`
+- Both solutions build with 0 warnings, 0 errors
 
 ### What's next
-- Task 12: Run XAF app and verify database creation + API endpoints via Scalar
-- Task 26: Add pull-to-refresh on list pages
-- Task 27: Add logout functionality
-- Task 28: End-to-end verification (XAF + MAUI together)
-- Start Docker SQL Server: `docker start xafmaui-sql`
-- Run XAF: `dotnet run --project XafMaui.Blazor.Server`
+- Task 28: End-to-end verification (XAF + MAUI together on device/emulator)
+- All 28 tasks will be complete after Task 28
 
 ### Decisions made
-- Used file-scoped namespaces for all new files
-- Enabled nullable in Module project
-- DevExpress MAUI CollectionView namespace: `dxcv:DXCollectionView` (not `dx:DXCollectionView`)
-- DevExpress MAUI DataGrid namespace: `dxg:DataGridView`
-- DevExpress MAUI Charts namespace: `dxc:ChartView`
-- DevExpress MAUI Gauges namespace: `dxga:RadialGauge`
-- `DisplayAlert` → `DisplayAlertAsync` in .NET 10 MAUI
-- Projects tab uses MAUI `CollectionView` with `IsGrouped` (not DXCollectionView) for grouped display
+- Pull-to-refresh uses `SyncService` methods per page (not full sync on every page)
+- Logout uses `ToolbarItem Order="Secondary"` (overflow menu via three dots)
+- `DisplayAlertAsync` used instead of obsolete `DisplayAlert` (.NET 10 MAUI)
+- ViewModels resolve `SyncService` via `IPlatformApplication.Current.Services` since they're not DI-injected
 
 ### Blockers
-- None. Ready for integration testing.
+- None. Ready for end-to-end testing on emulator/device.

@@ -24,6 +24,9 @@
         <dxg:DataGridView
             Grid.Row="1"
             ItemsSource="{Binding TimeEntries}"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing}"
+            PullToRefreshCommand="{Binding RefreshCommand}"
             AllowEditRows="False"
             AllowDeleteRows="False">
             <dxg:DataGridView.Columns>

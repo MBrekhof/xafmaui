@@ -48,6 +48,15 @@ namespace XafMaui.Module.BusinessObjects
                 .HasMany(t => t.Aspects)
                 .WithOne(t => t.Owner)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Project>()
+                .Property(p => p.BudgetHours)
+                .HasPrecision(18, 2);
+            modelBuilder.Entity<ProjectTask>()
+                .Property(p => p.EstimatedHours)
+                .HasPrecision(18, 2);
+            modelBuilder.Entity<TimeEntry>()
+                .Property(p => p.Hours)
+                .HasPrecision(18, 2);
         }
     }
 }

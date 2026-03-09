@@ -11,6 +11,10 @@
         </OnPlatform>
     </Shell.FlyoutBehavior>
 
+    <Shell.ToolbarItems>
+        <ToolbarItem Text="Logout" Order="Secondary" Clicked="OnLogoutClicked" />
+    </Shell.ToolbarItems>
+
     <TabBar>
         <ShellContent Title="Clients" Icon="person" ContentTemplate="{DataTemplate views:ClientsPage}" />
         <ShellContent Title="Day Sheet" Icon="calendar" ContentTemplate="{DataTemplate views:DaySheetPage}" />

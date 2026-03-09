@@ -22,6 +22,9 @@
         <dxcv:DXCollectionView
             Grid.Row="1"
             ItemsSource="{Binding Clients}"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing}"
+            PullToRefreshCommand="{Binding RefreshCommand}"
             Tap="OnClientTapped">
             <dxcv:DXCollectionView.ItemTemplate>
                 <DataTemplate>

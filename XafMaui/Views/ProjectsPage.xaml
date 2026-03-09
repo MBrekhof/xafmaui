@@ -12,7 +12,8 @@
         <vm:ProjectsViewModel />
     </ContentPage.BindingContext>
 
-    <CollectionView ItemsSource="{Binding ProjectGroups}" Padding="8" IsGrouped="True">
+    <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}" Padding="8">
+    <CollectionView ItemsSource="{Binding ProjectGroups}" IsGrouped="True">
         <CollectionView.GroupHeaderTemplate>
             <DataTemplate>
                 <Label Text="{Binding StatusName}" FontAttributes="Bold" FontSize="16"
@@ -35,4 +36,5 @@
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>
+    </RefreshView>
 </ContentPage>

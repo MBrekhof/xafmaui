@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using XafMaui.Data;
 
 namespace XafMaui.ViewModels;
@@ -21,6 +22,7 @@ public class TaskHours
 public class ReportsViewModel : INotifyPropertyChanged
 {
     LocalProject? _selectedProject;
+    bool _isRefreshing;
 
     public ObservableCollection<DayHours> WeeklyHours { get; } = [];
     public ObservableCollection<TaskHours> TaskBreakdown { get; } = [];
@@ -31,6 +33,20 @@ public class ReportsViewModel : INotifyPropertyChanged
         get => _selectedProject;
         set { _selectedProject = value; OnPropertyChanged(); LoadProjectReport(); }
     }
+
+    public bool IsRefreshing
+    {
+        get => _isRefreshing;
+        set { _isRefreshing = value; OnPropertyChanged(); }
+    }
+
+    public ICommand RefreshCommand => new Command(async () =>
+    {
+        var sync = IPlatformApplication.Current!.Services.GetRequiredService<Services.SyncService>();
+        await sync.SyncAllAsync();
+        LoadAll();
+        IsRefreshing = false;
+    });
 
     public double BudgetBurnPercent { get; private set; }
 

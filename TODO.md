@@ -17,7 +17,7 @@ See `docs/plans/2026-03-08-project-admin-mvp-plan.md` for full plan details.
 ## Phase 2: XAF Web API & Security Configuration
 - [x] Task 10: Register business objects in Web API
 - [x] Task 11: Configure security roles in Updater.cs
-- [ ] Task 12: Run XAF app and verify database creation
+- [x] Task 12: Run XAF app and verify database creation
 
 ## Phase 3: MAUI App — Foundation & API Layer
 - [x] Task 13: Add required NuGet packages to MAUI project
@@ -37,6 +37,6 @@ See `docs/plans/2026-03-08-project-admin-mvp-plan.md` for full plan details.
 - [x] Task 25: Build Reports tab
 
 ## Phase 5: Integration & Polish
-- [ ] Task 26: Add pull-to-refresh on all list pages
-- [ ] Task 27: Add logout functionality
+- [x] Task 26: Add pull-to-refresh on all list pages
+- [x] Task 27: Add logout functionality
 - [ ] Task 28: Verify end-to-end flow
