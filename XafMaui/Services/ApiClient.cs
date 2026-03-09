@@ -1,5 +1,7 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace XafMaui.Services;
 
@@ -7,6 +9,11 @@ public class ApiClient
 {
     readonly HttpClient _http;
     readonly AuthService _auth;
+    static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        Converters = { new JsonStringEnumConverter() }
+    };
 
     public ApiClient(HttpClient http, AuthService auth)
     {
@@ -31,22 +38,22 @@ public class ApiClient
         var response = await _http.GetAsync(url);
         response.EnsureSuccessStatusCode();
 
-        var result = await response.Content.ReadFromJsonAsync<ODataResponse<T>>();
+        var result = await response.Content.ReadFromJsonAsync<ODataResponse<T>>(JsonOptions);
         return result?.Value ?? [];
     }
 
     public async Task<T?> PostAsync<T>(string odataPath, T entity)
     {
         await EnsureAuthHeaderAsync();
-        var response = await _http.PostAsJsonAsync($"{ApiConfig.BaseUrl}/api/odata/{odataPath}", entity);
+        var response = await _http.PostAsJsonAsync($"{ApiConfig.BaseUrl}/api/odata/{odataPath}", entity, JsonOptions);
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<T>();
+        return await response.Content.ReadFromJsonAsync<T>(JsonOptions);
     }
 
     public async Task PutAsync<T>(string odataPath, int id, T entity)
     {
         await EnsureAuthHeaderAsync();
-        var response = await _http.PutAsJsonAsync($"{ApiConfig.BaseUrl}/api/odata/{odataPath}/{id}", entity);
+        var response = await _http.PutAsJsonAsync($"{ApiConfig.BaseUrl}/api/odata/{odataPath}/{id}", entity, JsonOptions);
         response.EnsureSuccessStatusCode();
     }
 
