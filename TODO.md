@@ -57,3 +57,11 @@ See `docs/plans/2026-03-08-project-admin-mvp-plan.md` for full plan details.
 - [ ] Task 39: MAUI dynamic report picker — fetch available reports from ReportDataV2 OData endpoint, let user pick and download any report (replaces hardcoded buttons)
 - [ ] Task 40: Add report parameters UI in MAUI (date range for timesheet, project picker for budget)
 - [ ] Task 41: XAF Blazor — verify Report Designer works for end-users to create/modify reports
+
+## Phase 8: Time Entry Approval Workflow
+- [ ] Task 42: Add `ReviewNote` field to TimeEntry entity (XAF)
+- [ ] Task 43: Manager approval flow — PM can set status to Approved/Rejected with ReviewNote
+- [ ] Task 44: MAUI — show rejection note in Day Sheet bottom sheet detail
+- [ ] Task 45: MAUI — allow editing rejected entries (tap → edit → resubmit as Draft)
+- [ ] Task 46: MAUI — visual status indicators on Day Sheet (color/icon per status)
+- [ ] Task 47: (Optional) MAUI manager approval screen — list submitted entries for PM's projects

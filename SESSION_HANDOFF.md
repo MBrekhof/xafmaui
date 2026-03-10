@@ -10,9 +10,11 @@
 - **Database refreshed**: Dropped and recreated to pick up new role permissions.
 
 ### What's next
+- **Time entry approval workflow (Phase 8)** — next priority
+  - Add ReviewNote to TimeEntry, manager approve/reject flow, MAUI re-entry for rejected entries
+  - Status flow: Draft → Submitted → Approved / Rejected(+note) → re-edit → Draft
 - Expose ReportDataV2 via Web API — Task 38
 - MAUI dynamic report picker (replaces hardcoded buttons) — Task 39
-- Report parameters UI in MAUI — Task 40
 - Deploy XAF backend to Docker — Task 35
 - Custom splash screen — Task 36
 - Verify light/dark mode restart persistence — Task 37
