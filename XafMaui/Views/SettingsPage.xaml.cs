@@ -35,6 +35,7 @@ public partial class SettingsPage : ContentPage
                       ?? ThemeOptions[4]; // TealGreen default
         themePicker.SelectedItem = current;
         UpdatePreview(current);
+        darkModeSwitch.IsToggled = Preferences.Get("ThemeIsDark", true);
     }
 
     void OnThemeChanged(object sender, EventArgs e)
@@ -48,6 +49,12 @@ public partial class SettingsPage : ContentPage
 
         // Apply immediately for DevExpress controls
         ThemeManager.Theme = new Theme(selected.SeedColor);
+    }
+
+    void OnDarkModeToggled(object sender, ToggledEventArgs e)
+    {
+        Preferences.Set("ThemeIsDark", e.Value);
+        Application.Current!.UserAppTheme = e.Value ? AppTheme.Dark : AppTheme.Light;
     }
 
     void UpdatePreview(ThemeOption option)

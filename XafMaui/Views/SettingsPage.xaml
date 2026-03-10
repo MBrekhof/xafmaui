@@ -23,6 +23,12 @@
                        FontSize="16" FontAttributes="Bold" TextColor="White" />
             </Grid>
 
+            <Grid ColumnDefinitions="*,Auto" Padding="0,8">
+                <Label Text="Dark Mode" VerticalOptions="Center" FontSize="16" />
+                <Switch x:Name="darkModeSwitch" Grid.Column="1"
+                        Toggled="OnDarkModeToggled" />
+            </Grid>
+
             <Label x:Name="restartHint" Text="Theme change takes effect on next app launch."
                    FontSize="12" TextColor="Gray" IsVisible="False" />
 

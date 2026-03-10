@@ -10,6 +10,9 @@ namespace XafMaui
         {
             InitializeComponent();
             _services = services;
+
+            var isDark = Preferences.Get("ThemeIsDark", true);
+            UserAppTheme = isDark ? AppTheme.Dark : AppTheme.Light;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
