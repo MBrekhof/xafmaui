@@ -8,11 +8,11 @@ namespace XafMaui
 
         public App(IServiceProvider services)
         {
-            InitializeComponent();
-            _services = services;
-
             var isDark = Preferences.Get("ThemeIsDark", true);
             UserAppTheme = isDark ? AppTheme.Dark : AppTheme.Light;
+
+            InitializeComponent();
+            _services = services;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
