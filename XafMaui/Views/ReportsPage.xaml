@@ -79,10 +79,47 @@
             <Label Text="{Binding BudgetBurnPercent, StringFormat='Budget consumed: {0:F0}%'}"
                    HorizontalOptions="Center" FontSize="14" />
 
-            <!-- PDF Reports -->
+            <!-- PDF Reports — dynamic list -->
             <Label Text="PDF Reports" FontAttributes="Bold" FontSize="18" Margin="0,16,0,0" />
-            <dx:DXButton Content="Download Weekly Timesheet" Clicked="OnDownloadTimesheetClicked" />
-            <dx:DXButton Content="Download Project Budget Report" Clicked="OnDownloadBudgetClicked" />
+
+            <!-- Weekly Timesheet parameters -->
+            <dx:DXStackLayout ItemSpacing="8">
+                <dx:DateEdit x:Name="timesheetWeekStart"
+                             LabelText="Week starting"
+                             Date="{Binding TimesheetWeekStart}" />
+                <dx:DXButton Content="Download Weekly Timesheet" Clicked="OnDownloadTimesheetClicked" />
+            </dx:DXStackLayout>
+
+            <!-- Project Budget parameters -->
+            <dx:DXStackLayout ItemSpacing="8">
+                <dx:ComboBoxEdit x:Name="budgetProjectPicker"
+                                 ItemsSource="{Binding Projects}"
+                                 SelectedItem="{Binding BudgetProject}"
+                                 DisplayMember="Name"
+                                 LabelText="Project (leave empty for all)"
+                                 IsFilterEnabled="True"
+                                 NullText="All active projects" />
+                <dx:DXButton Content="Download Project Budget Report" Clicked="OnDownloadBudgetClicked" />
+            </dx:DXStackLayout>
+
+            <!-- Stored reports from server -->
+            <Label Text="Stored Reports" FontAttributes="Bold" FontSize="18" Margin="0,16,0,0" />
+            <dx:DXButton Content="Load Available Reports" Clicked="OnLoadReportsClicked" />
+            <dx:DXCollectionView x:Name="reportsList"
+                                 ItemsSource="{Binding StoredReports}"
+                                 Tap="OnReportTapped">
+                <dx:DXCollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <dx:DXStackLayout Orientation="Horizontal" Padding="12,8" ItemSpacing="8">
+                            <Label Text="{Binding DisplayName}" FontSize="15"
+                                   VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
+                            <Label Text="PDF" FontSize="12" TextColor="Gray"
+                                   VerticalOptions="Center" />
+                        </dx:DXStackLayout>
+                    </DataTemplate>
+                </dx:DXCollectionView.ItemTemplate>
+            </dx:DXCollectionView>
+
             <ActivityIndicator x:Name="pdfSpinner" IsRunning="False" IsVisible="False"
                                HorizontalOptions="Center" Margin="0,8" />
         </dx:DXStackLayout>

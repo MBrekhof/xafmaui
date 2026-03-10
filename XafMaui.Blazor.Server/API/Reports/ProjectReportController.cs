@@ -100,15 +100,18 @@ public class ProjectReportController : ControllerBase
     }
 
     [HttpGet("ProjectBudget")]
-    public IActionResult ProjectBudget()
+    public IActionResult ProjectBudget([FromQuery] int? projectId = null)
     {
         using var os = _objectSpaceFactory.CreateObjectSpace(typeof(Project));
-        var projects = os.GetObjectsQuery<Project>()
+        var query = os.GetObjectsQuery<Project>()
             .Include(p => p.Client)
             .Include(p => p.ProjectTasks).ThenInclude(t => t.TimeEntries)
-            .Where(p => p.Status == ProjectStatus.Active || p.Status == ProjectStatus.OnHold)
-            .OrderBy(p => p.Name)
-            .ToList();
+            .Where(p => p.Status == ProjectStatus.Active || p.Status == ProjectStatus.OnHold);
+
+        if (projectId.HasValue)
+            query = query.Where(p => p.ID == projectId.Value);
+
+        var projects = query.OrderBy(p => p.Name).ToList();
 
         var data = projects.Select(p => new
         {

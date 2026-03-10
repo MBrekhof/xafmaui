@@ -56,6 +56,7 @@ namespace XafMaui.Blazor.Server
                         options.BusinessObject<XafMaui.Module.BusinessObjects.ProjectTask>();
                         options.BusinessObject<XafMaui.Module.BusinessObjects.ProjectAssignment>();
                         options.BusinessObject<XafMaui.Module.BusinessObjects.TimeEntry>();
+                        options.BusinessObject<DevExpress.Persistent.BaseImpl.EF.ReportDataV2>();
                     });
                 });
 

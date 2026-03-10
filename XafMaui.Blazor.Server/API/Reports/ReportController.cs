@@ -13,9 +13,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace XafMaui.WebApi.Reports
 {
     [Authorize]
-    [ValidateAntiForgeryToken]
     [Route("api/[controller]")]
-    // This is a WebApi Reports controller sample.
     public class ReportController : ControllerBase
     {
         readonly IReportExportService service;

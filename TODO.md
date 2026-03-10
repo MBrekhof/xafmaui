@@ -58,11 +58,11 @@ See `docs/plans/2026-03-08-project-admin-mvp-plan.md` for full plan details.
 - [ ] Task 40: (Optional) MAUI manager approval screen — list submitted entries for PM's projects
 
 ## Phase 8: Reporting & Self-Service
-- [ ] Task 41: Light/dark mode — verify restart persistence works correctly
-- [ ] Task 42: Expose ReportDataV2 via Web API (register in Startup.cs webApiBuilder)
-- [ ] Task 43: MAUI dynamic report picker — fetch available reports from ReportDataV2 OData endpoint, let user pick and download any report (replaces hardcoded buttons)
-- [ ] Task 44: Add report parameters UI in MAUI (date range for timesheet, project picker for budget)
-- [ ] Task 45: XAF Blazor — verify Report Designer works for end-users to create/modify reports
+- [x] Task 41: Light/dark mode — verified restart persistence works correctly (code review)
+- [x] Task 42: Expose ReportDataV2 via Web API (register in Startup.cs webApiBuilder)
+- [x] Task 43: MAUI dynamic report picker — fetch available reports from ReportDataV2 OData endpoint, let user pick and download any report
+- [x] Task 44: Add report parameters UI in MAUI (date range for timesheet, project picker for budget)
+- [x] Task 45: XAF Blazor — Report Designer verified (EnableInplaceReports + ReportsV2 module enabled)
 
 ## Phase 9: Final Polish & Deployment
 - [ ] Task 46: Custom splash screen (currently shows default ".NET" branding)

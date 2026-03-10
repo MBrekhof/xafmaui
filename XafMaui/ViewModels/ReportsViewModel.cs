@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using XafMaui.Data;
+using XafMaui.Models;
 
 namespace XafMaui.ViewModels;
 
@@ -22,16 +23,39 @@ public class TaskHours
 public class ReportsViewModel : INotifyPropertyChanged
 {
     LocalProject? _selectedProject;
+    LocalProject? _budgetProject;
     bool _isRefreshing;
+    DateTime _timesheetWeekStart;
+
+    public ReportsViewModel()
+    {
+        // Default to Monday of current week
+        var today = DateTime.Today;
+        int diff = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
+        _timesheetWeekStart = today.AddDays(-diff);
+    }
 
     public ObservableCollection<DayHours> WeeklyHours { get; } = [];
     public ObservableCollection<TaskHours> TaskBreakdown { get; } = [];
     public ObservableCollection<LocalProject> Projects { get; } = [];
+    public ObservableCollection<ReportItemDto> StoredReports { get; } = [];
 
     public LocalProject? SelectedProject
     {
         get => _selectedProject;
         set { _selectedProject = value; OnPropertyChanged(); LoadProjectReport(); }
+    }
+
+    public LocalProject? BudgetProject
+    {
+        get => _budgetProject;
+        set { _budgetProject = value; OnPropertyChanged(); }
+    }
+
+    public DateTime TimesheetWeekStart
+    {
+        get => _timesheetWeekStart;
+        set { _timesheetWeekStart = value; OnPropertyChanged(); }
     }
 
     public bool IsRefreshing
@@ -111,6 +135,15 @@ public class ReportsViewModel : INotifyPropertyChanged
             ? (double)(totalLogged / _selectedProject.BudgetHours) * 100
             : 0;
         OnPropertyChanged(nameof(BudgetBurnPercent));
+    }
+
+    public async Task LoadStoredReportsAsync()
+    {
+        StoredReports.Clear();
+        var api = IPlatformApplication.Current!.Services.GetRequiredService<Services.ApiClient>();
+        var reports = await api.GetListAsync<ReportItemDto>("ReportDataV2", "$select=ID,DisplayName,DataTypeName&$orderby=DisplayName");
+        foreach (var r in reports)
+            StoredReports.Add(r);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
