@@ -447,7 +447,11 @@ namespace XafMaui.Module.DatabaseUpdate
                 role.AddTypePermissionsRecursively<Project>(SecurityOperations.Read, SecurityPermissionState.Allow);
                 role.AddTypePermissionsRecursively<ProjectTask>(SecurityOperations.Read, SecurityPermissionState.Allow);
                 role.AddTypePermissionsRecursively<ProjectAssignment>(SecurityOperations.Read, SecurityPermissionState.Allow);
-                role.AddTypePermissionsRecursively<TimeEntry>(SecurityOperations.CRUDAccess, SecurityPermissionState.Allow);
+                // Consultants can only CRUD their own time entries
+                role.AddTypePermissionsRecursively<TimeEntry>(SecurityOperations.Create, SecurityPermissionState.Allow);
+                role.AddObjectPermissionFromLambda<TimeEntry>(SecurityOperations.Read, t => t.User!.ID == (Guid)CurrentUserIdOperator.CurrentUserId(), SecurityPermissionState.Allow);
+                role.AddObjectPermissionFromLambda<TimeEntry>(SecurityOperations.Write, t => t.User!.ID == (Guid)CurrentUserIdOperator.CurrentUserId(), SecurityPermissionState.Allow);
+                role.AddObjectPermissionFromLambda<TimeEntry>(SecurityOperations.Delete, t => t.User!.ID == (Guid)CurrentUserIdOperator.CurrentUserId(), SecurityPermissionState.Allow);
 
                 AddDefaultUserPermissions(role);
             }
