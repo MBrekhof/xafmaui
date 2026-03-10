@@ -10,10 +10,12 @@
 - **Database refreshed**: Dropped and recreated to pick up new role permissions.
 
 ### What's next
-- Custom splash screen (currently shows ".NET" default branding) — Task 35
-- Verify light/dark mode persists correctly after restart — Task 36
-- Deploy XAF backend to Docker — Task 34
-- Test remaining roles on device (Manager, Consultant, Office)
+- Expose ReportDataV2 via Web API — Task 38
+- MAUI dynamic report picker (replaces hardcoded buttons) — Task 39
+- Report parameters UI in MAUI — Task 40
+- Deploy XAF backend to Docker — Task 35
+- Custom splash screen — Task 36
+- Verify light/dark mode restart persistence — Task 37
 
 ### Decisions made
 - DevExpress MAUI Theme class has no isDark constructor parameter; light/dark is controlled via `Application.UserAppTheme` which DevExpress respects via `{dx:ThemeColor}` extensions

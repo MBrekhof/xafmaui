@@ -47,6 +47,13 @@ See `docs/plans/2026-03-08-project-admin-mvp-plan.md` for full plan details.
 - [x] Task 31: Server-side PDF reports (Weekly Timesheet, Project Budget)
 - [x] Task 32: Time entry creation flow (Add button on Day Sheet)
 - [x] Task 33: Test all 4 user roles (security review + role test matrix)
-- [ ] Task 34: Deploy XAF backend to Docker
-- [ ] Task 35: Custom splash screen (currently shows default ".NET" branding)
-- [ ] Task 36: Light/dark mode — verify restart persistence works correctly
+- [x] Task 34: Register predefined reports in XAF (Weekly Timesheet, Project Budget)
+- [ ] Task 35: Deploy XAF backend to Docker
+- [ ] Task 36: Custom splash screen (currently shows default ".NET" branding)
+- [ ] Task 37: Light/dark mode — verify restart persistence works correctly
+
+## Phase 7: Reporting & Self-Service
+- [ ] Task 38: Expose ReportDataV2 via Web API (register in Startup.cs webApiBuilder)
+- [ ] Task 39: MAUI dynamic report picker — fetch available reports from ReportDataV2 OData endpoint, let user pick and download any report (replaces hardcoded buttons)
+- [ ] Task 40: Add report parameters UI in MAUI (date range for timesheet, project picker for budget)
+- [ ] Task 41: XAF Blazor — verify Report Designer works for end-users to create/modify reports

@@ -44,7 +44,10 @@ namespace XafMaui.Module
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
         {
             ModuleUpdater updater = new DatabaseUpdate.Updater(objectSpace, versionFromDB);
-            return new ModuleUpdater[] { updater };
+            var reportsUpdater = new PredefinedReportsUpdater(Application, objectSpace, versionFromDB);
+            reportsUpdater.AddPredefinedReport<Reports.WeeklyTimesheetReport>("Weekly Timesheet", typeof(BusinessObjects.TimeEntry));
+            reportsUpdater.AddPredefinedReport<Reports.ProjectBudgetReport>("Project Budget", typeof(BusinessObjects.Project));
+            return new ModuleUpdater[] { updater, reportsUpdater };
         }
         public override void Setup(XafApplication application)
         {
