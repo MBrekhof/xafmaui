@@ -45,6 +45,8 @@ See `docs/plans/2026-03-08-project-admin-mvp-plan.md` for full plan details.
 - [x] Task 29: Material 3 theming (TealGreen seed color)
 - [x] Task 30: BottomSheet for Day Sheet time entry details
 - [x] Task 31: Server-side PDF reports (Weekly Timesheet, Project Budget)
-- [ ] Task 32: Time entry creation flow (Add button on Day Sheet)
-- [ ] Task 33: Test all 4 user roles
+- [x] Task 32: Time entry creation flow (Add button on Day Sheet)
+- [x] Task 33: Test all 4 user roles (security review + role test matrix)
 - [ ] Task 34: Deploy XAF backend to Docker
+- [ ] Task 35: Custom splash screen (currently shows default ".NET" branding)
+- [ ] Task 36: Light/dark mode — verify restart persistence works correctly
