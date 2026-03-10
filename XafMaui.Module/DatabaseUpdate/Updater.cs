@@ -441,12 +441,15 @@ namespace XafMaui.Module.DatabaseUpdate
                 role = ObjectSpace.CreateObject<PermissionPolicyRole>();
                 role.Name = "Consultants";
 
+                // Reference data — all clients visible (no back-link to Project)
                 role.AddTypePermissionsRecursively<Client>(SecurityOperations.Read, SecurityPermissionState.Allow);
                 role.AddTypePermissionsRecursively<ContactPerson>(SecurityOperations.Read, SecurityPermissionState.Allow);
                 role.AddTypePermissionsRecursively<Address>(SecurityOperations.Read, SecurityPermissionState.Allow);
-                role.AddTypePermissionsRecursively<Project>(SecurityOperations.Read, SecurityPermissionState.Allow);
-                role.AddTypePermissionsRecursively<ProjectTask>(SecurityOperations.Read, SecurityPermissionState.Allow);
-                role.AddTypePermissionsRecursively<ProjectAssignment>(SecurityOperations.Read, SecurityPermissionState.Allow);
+
+                // Only see projects, tasks, and assignments for projects they're assigned to
+                role.AddObjectPermission<Project>(SecurityOperations.Read, "ProjectAssignments[User.ID = CurrentUserId()]", SecurityPermissionState.Allow);
+                role.AddObjectPermission<ProjectTask>(SecurityOperations.Read, "Project.ProjectAssignments[User.ID = CurrentUserId()]", SecurityPermissionState.Allow);
+                role.AddObjectPermission<ProjectAssignment>(SecurityOperations.Read, "Project.ProjectAssignments[User.ID = CurrentUserId()]", SecurityPermissionState.Allow);
                 // Consultants can only CRUD their own time entries
                 role.AddTypePermissionsRecursively<TimeEntry>(SecurityOperations.Create, SecurityPermissionState.Allow);
                 role.AddObjectPermissionFromLambda<TimeEntry>(SecurityOperations.Read, t => t.User!.ID == (Guid)CurrentUserIdOperator.CurrentUserId(), SecurityPermissionState.Allow);
