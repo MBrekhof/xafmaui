@@ -22,6 +22,14 @@
 - ReportDataV2 exposed via OData for MAUI to discover available reports
 - Stored reports downloaded via `ReportController.DownloadByKey` endpoint
 
+### Manual verification needed
+- **All Phase 8 tasks (41-45)** need manual confirmation that they work end-to-end on device
+  - Task 41: Toggle dark mode, restart app, verify it persists
+  - Task 42: Check `/api/odata/ReportDataV2` returns stored reports
+  - Task 43: Tap "Load Available Reports", tap a report, verify PDF opens
+  - Task 44: Change week start date / select project, download reports with params
+  - Task 45: Open XAF Blazor, navigate to Reports, verify Report Designer opens
+
 ### Blockers
 - Visual Studio locks Android build output — must close VS before CLI build
 - Database must be dropped/recreated when role definitions change
