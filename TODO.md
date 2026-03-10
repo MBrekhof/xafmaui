@@ -65,5 +65,5 @@ See `docs/plans/2026-03-08-project-admin-mvp-plan.md` for full plan details.
 - [x] Task 45: XAF Blazor — Report Designer verified (EnableInplaceReports + ReportsV2 module enabled) ⚠️ NEEDS MANUAL CONFIRMATION
 
 ## Phase 9: Final Polish & Deployment
-- [ ] Task 46: Custom splash screen (currently shows default ".NET" branding)
+- [x] Task 46: Custom splash screen — hexagonal X logo with "PROJECT ADMIN / XAF + MAUI" on TealGreen background
 - [ ] Task 47: Deploy XAF backend to Docker
