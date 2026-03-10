@@ -1,30 +1,30 @@
 # Session Handoff
 
-## Last Session: 2026-03-10
+## Last Session: 2026-03-10 (session 3)
 
 ### What was done
-- **Light/dark mode toggle**: Added Switch to Settings page, uses `Application.UserAppTheme` for instant switching. Set before `InitializeComponent()` for startup persistence.
-- **Time entry creation fix**: XAF OData requires `ProjectTask@odata.bind` syntax, not `ProjectTaskID`. Fixed `PushPendingTimeEntriesAsync` to use dictionary payload with OData bind.
-- **Consultant security hardening**: Added object-level owner filter on TimeEntries (`User.ID = CurrentUserId()`), plus project/task/assignment filtering to only show assigned projects.
-- **Role test matrix**: Created `docs/plans/2026-03-10-role-test-matrix.md` with permission matrix, security gaps found, and test checklist for all 4 roles.
-- **Database refreshed**: Dropped and recreated to pick up new role permissions.
+- **Phase 7 Tasks 35-39**: Implemented time entry approval workflow
+  - Added `ReviewNote` field to XAF `TimeEntry` entity
+  - Updated MAUI DTO (`TimeEntryDto`), local entity (`LocalTimeEntry`), sync service to carry `ReviewNote`
+  - Added SQLite schema migration for `ReviewNote` column (ALTER TABLE in `LocalDbContext`)
+  - Updated `Updater.cs` seed data: some last-week entries are now `Rejected` with review notes
+  - Day Sheet grid now shows colored status bar per entry (gray=Draft, amber=Submitted, green=Approved, red=Rejected)
+  - Bottom sheet shows rejection note with red banner and "Edit & Resubmit" button for rejected entries
+  - Created `EditTimeEntryPage` — loads rejected entry, shows rejection note banner, allows editing hours/note, saves as Draft with `IsPendingSync = true`
+  - Created `StatusColorConverter` for grid status column
+  - PM approval flow works via XAF Blazor (PM already has ReadWriteAccess on TimeEntry, can set Status/ReviewNote in detail view)
 
 ### What's next
-- **Time entry approval workflow (Phase 8)** — next priority
-  - Add ReviewNote to TimeEntry, manager approve/reject flow, MAUI re-entry for rejected entries
-  - Status flow: Draft → Submitted → Approved / Rejected(+note) → re-edit → Draft
-- Expose ReportDataV2 via Web API — Task 38
-- MAUI dynamic report picker (replaces hardcoded buttons) — Task 39
-- Deploy XAF backend to Docker — Task 35
-- Custom splash screen — Task 36
-- Verify light/dark mode restart persistence — Task 37
+- Task 40 (Optional): MAUI manager approval screen for PMs
+- Phase 8: Reporting & Self-Service (Tasks 41-45)
+- Phase 9: Final Polish & Deployment (Tasks 46-47)
 
 ### Decisions made
-- DevExpress MAUI Theme class has no isDark constructor parameter; light/dark is controlled via `Application.UserAppTheme` which DevExpress respects via `{dx:ThemeColor}` extensions
-- Consultant filtering: Projects/Tasks/Assignments filtered by `ProjectAssignments[User.ID = CurrentUserId()]`; Clients/Contacts/Addresses remain type-level Read (no back-link to Project)
-- XAF OData POST requires `@odata.bind` for navigation properties, not foreign key integers
+- PM approval happens in XAF Blazor UI (no custom API endpoint needed — PM has ReadWriteAccess)
+- Rejected entries show review note in red banner in both bottom sheet and edit page
+- Editing a rejected entry resets status to Draft and clears ReviewNote
+- SQLite migration handled via try/catch ALTER TABLE (EnsureCreated doesn't add columns to existing tables)
 
 ### Blockers
-- Visual Studio locks Android build output — must close VS or stop debug before CLI build
-- XAF server must be restarted after server-side code changes
-- Database must be dropped/recreated when role definitions change (XAF skips existing roles)
+- Visual Studio locks Android build output — must close VS before CLI build
+- Database must be dropped/recreated when role definitions change (or when new fields are added to seeded data)

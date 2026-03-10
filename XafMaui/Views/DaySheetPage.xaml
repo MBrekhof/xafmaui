@@ -12,6 +12,11 @@
         <vm:DaySheetViewModel />
     </ContentPage.BindingContext>
 
+    <ContentPage.Resources>
+        <local:StatusColorConverter x:Key="statusColor"
+            xmlns:local="clr-namespace:XafMaui.Converters" />
+    </ContentPage.Resources>
+
     <Grid RowDefinitions="Auto,*,Auto" Padding="8">
         <!-- Date picker -->
         <dx:DateEdit
@@ -32,6 +37,16 @@
             AllowDeleteRows="False"
             Tap="OnGridTap">
             <dxg:DataGridView.Columns>
+                <dxg:TemplateColumn FieldName="Status" Caption="" Width="6"
+                    AllowSort="False">
+                    <dxg:TemplateColumn.DisplayTemplate>
+                        <DataTemplate>
+                            <BoxView Color="{Binding Item.Status, Converter={StaticResource statusColor}}"
+                                     WidthRequest="6" HorizontalOptions="Center" VerticalOptions="Fill"
+                                     CornerRadius="3" />
+                        </DataTemplate>
+                    </dxg:TemplateColumn.DisplayTemplate>
+                </dxg:TemplateColumn>
                 <dxg:TextColumn FieldName="ProjectName" Caption="Project" Width="*" MinWidth="100" />
                 <dxg:TextColumn FieldName="ProjectTaskName" Caption="Task" Width="*" MinWidth="100" />
                 <dxg:NumberColumn FieldName="Hours" Caption="Hrs" Width="60" />
@@ -49,11 +64,11 @@
         <!-- Detail bottom sheet -->
         <dx:BottomSheet x:Name="detailSheet"
                         Grid.Row="1"
-                        HalfExpandedRatio="0.45"
+                        HalfExpandedRatio="0.5"
                         AllowedState="HalfExpanded"
                         IsModal="True"
                         ShowGrabber="True">
-            <Grid Padding="16" RowDefinitions="Auto,Auto,Auto,Auto,*" RowSpacing="12">
+            <Grid Padding="16" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*" RowSpacing="12">
                 <Label x:Name="sheetProjectLabel"
                        FontSize="18" FontAttributes="Bold" />
                 <Label x:Name="sheetTaskLabel" Grid.Row="1"
@@ -65,9 +80,18 @@
                     <Label x:Name="sheetStatusLabel" Grid.Column="4" VerticalOptions="Center" />
                 </Grid>
                 <Label Grid.Row="3" Text="Notes" FontAttributes="Bold" FontSize="14" />
-                <ScrollView Grid.Row="4">
-                    <Label x:Name="sheetNoteLabel" FontSize="14" TextColor="Gray" />
-                </ScrollView>
+                <Label x:Name="sheetNoteLabel" Grid.Row="4" FontSize="14" TextColor="Gray" />
+
+                <!-- Review note section (visible only for rejected entries) -->
+                <VerticalStackLayout x:Name="reviewNoteSection" Grid.Row="5" Spacing="4"
+                                     IsVisible="False">
+                    <Label Text="Rejection Note" FontAttributes="Bold" FontSize="14" TextColor="#D32F2F" />
+                    <Border BackgroundColor="#FFF3F3" Stroke="#FFCDD2" StrokeShape="RoundRectangle 8" Padding="12">
+                        <Label x:Name="sheetReviewNoteLabel" FontSize="14" TextColor="#B71C1C" />
+                    </Border>
+                    <dx:DXButton x:Name="editButton" Content="Edit &amp; Resubmit"
+                                 Clicked="OnEditRejectedClicked" Margin="0,8,0,0" />
+                </VerticalStackLayout>
             </Grid>
         </dx:BottomSheet>
     </Grid>

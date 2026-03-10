@@ -13,6 +13,17 @@ public class LocalDbContext : DbContext
     public LocalDbContext()
     {
         Database.EnsureCreated();
+        MigrateSchema();
+    }
+
+    void MigrateSchema()
+    {
+        // EnsureCreated won't add new columns to existing tables — patch manually
+        try
+        {
+            Database.ExecuteSqlRaw("ALTER TABLE TimeEntries ADD COLUMN ReviewNote TEXT");
+        }
+        catch { /* column already exists */ }
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

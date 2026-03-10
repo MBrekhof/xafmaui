@@ -48,20 +48,22 @@ See `docs/plans/2026-03-08-project-admin-mvp-plan.md` for full plan details.
 - [x] Task 32: Time entry creation flow (Add button on Day Sheet)
 - [x] Task 33: Test all 4 user roles (security review + role test matrix)
 - [x] Task 34: Register predefined reports in XAF (Weekly Timesheet, Project Budget)
-- [ ] Task 35: Deploy XAF backend to Docker
-- [ ] Task 36: Custom splash screen (currently shows default ".NET" branding)
-- [ ] Task 37: Light/dark mode — verify restart persistence works correctly
 
-## Phase 7: Reporting & Self-Service
-- [ ] Task 38: Expose ReportDataV2 via Web API (register in Startup.cs webApiBuilder)
-- [ ] Task 39: MAUI dynamic report picker — fetch available reports from ReportDataV2 OData endpoint, let user pick and download any report (replaces hardcoded buttons)
-- [ ] Task 40: Add report parameters UI in MAUI (date range for timesheet, project picker for budget)
-- [ ] Task 41: XAF Blazor — verify Report Designer works for end-users to create/modify reports
+## Phase 7: Time Entry Approval Workflow
+- [x] Task 35: Add `ReviewNote` field to TimeEntry entity (XAF)
+- [x] Task 36: Manager approval flow — PM can set status to Approved/Rejected with ReviewNote
+- [x] Task 37: MAUI — show rejection note in Day Sheet bottom sheet detail
+- [x] Task 38: MAUI — allow editing rejected entries (tap → edit → resubmit as Draft)
+- [x] Task 39: MAUI — visual status indicators on Day Sheet (color/icon per status)
+- [ ] Task 40: (Optional) MAUI manager approval screen — list submitted entries for PM's projects
 
-## Phase 8: Time Entry Approval Workflow
-- [ ] Task 42: Add `ReviewNote` field to TimeEntry entity (XAF)
-- [ ] Task 43: Manager approval flow — PM can set status to Approved/Rejected with ReviewNote
-- [ ] Task 44: MAUI — show rejection note in Day Sheet bottom sheet detail
-- [ ] Task 45: MAUI — allow editing rejected entries (tap → edit → resubmit as Draft)
-- [ ] Task 46: MAUI — visual status indicators on Day Sheet (color/icon per status)
-- [ ] Task 47: (Optional) MAUI manager approval screen — list submitted entries for PM's projects
+## Phase 8: Reporting & Self-Service
+- [ ] Task 41: Light/dark mode — verify restart persistence works correctly
+- [ ] Task 42: Expose ReportDataV2 via Web API (register in Startup.cs webApiBuilder)
+- [ ] Task 43: MAUI dynamic report picker — fetch available reports from ReportDataV2 OData endpoint, let user pick and download any report (replaces hardcoded buttons)
+- [ ] Task 44: Add report parameters UI in MAUI (date range for timesheet, project picker for budget)
+- [ ] Task 45: XAF Blazor — verify Report Designer works for end-users to create/modify reports
+
+## Phase 9: Final Polish & Deployment
+- [ ] Task 46: Custom splash screen (currently shows default ".NET" branding)
+- [ ] Task 47: Deploy XAF backend to Docker

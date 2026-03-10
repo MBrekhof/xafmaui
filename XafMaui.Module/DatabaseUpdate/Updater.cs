@@ -317,18 +317,26 @@ namespace XafMaui.Module.DatabaseUpdate
                 if (d < 3) CreateTimeEntry(date, 3.5m, "Star schema iteration and review", TimeEntryStatus.Draft, consultant2!, t5a);
             }
 
-            // Last week (submitted)
+            // Last week (mix of submitted and rejected)
             var lastMonday = monday.AddDays(-7);
             for (int d = 0; d < 5; d++)
             {
                 var date = lastMonday.AddDays(d);
                 CreateTimeEntry(date, 4.0m, "Core module: inventory management", TimeEntryStatus.Submitted, consultant1, t1c);
                 CreateTimeEntry(date, 2.0m, "Integration layer: REST API scaffolding", TimeEntryStatus.Submitted, consultant1, t1d);
-                CreateTimeEntry(date, 1.5m, "Biometric auth: Android implementation", TimeEntryStatus.Submitted, consultant1, t4d);
+                if (d == 1)
+                    CreateTimeEntry(date, 1.5m, "Biometric auth: Android implementation", TimeEntryStatus.Rejected, consultant1, t4d, "Hours seem too low for this task. Please verify and resubmit.");
+                else if (d == 3)
+                    CreateTimeEntry(date, 1.5m, "Biometric auth: Android implementation", TimeEntryStatus.Rejected, consultant1, t4d, "Wrong task — this should be logged under Push Notifications.");
+                else
+                    CreateTimeEntry(date, 1.5m, "Biometric auth: Android implementation", TimeEntryStatus.Submitted, consultant1, t4d);
                 CreateTimeEntry(date, 5.0m, "Product catalog API: CRUD and filtering", TimeEntryStatus.Submitted, consultant3!, t2b);
                 CreateTimeEntry(date, 3.0m, "Order management: workflow engine", TimeEntryStatus.Submitted, consultant3!, t2c);
                 CreateTimeEntry(date, 4.0m, "Dashboard: real-time WebSocket integration", TimeEntryStatus.Submitted, consultant2!, t3b);
-                CreateTimeEntry(date, 2.0m, "Alerting: threshold configuration UI", TimeEntryStatus.Submitted, consultant2!, t3c);
+                if (d == 2)
+                    CreateTimeEntry(date, 2.0m, "Alerting: threshold configuration UI", TimeEntryStatus.Rejected, consultant2!, t3c, "Please split into separate entries for design and implementation.");
+                else
+                    CreateTimeEntry(date, 2.0m, "Alerting: threshold configuration UI", TimeEntryStatus.Submitted, consultant2!, t3c);
                 CreateTimeEntry(date, 2.0m, "Data warehouse: source system analysis", TimeEntryStatus.Submitted, consultant2!, t5a);
             }
 
@@ -388,10 +396,11 @@ namespace XafMaui.Module.DatabaseUpdate
             a.Project = project; a.User = user; a.Role = role;
         }
 
-        void CreateTimeEntry(DateTime date, decimal hours, string note, TimeEntryStatus status, ApplicationUser user, ProjectTask task)
+        void CreateTimeEntry(DateTime date, decimal hours, string note, TimeEntryStatus status, ApplicationUser user, ProjectTask task, string? reviewNote = null)
         {
             var e = ObjectSpace.CreateObject<TimeEntry>();
             e.Date = date; e.Hours = hours; e.Note = note; e.Status = status;
+            e.ReviewNote = reviewNote;
             e.User = user; e.ProjectTask = task;
         }
 

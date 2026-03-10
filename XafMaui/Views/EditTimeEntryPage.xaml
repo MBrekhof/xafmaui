@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XafMaui.Views.EditTimeEntryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    Title="Edit Time Entry">
+
+    <ScrollView Padding="16">
+        <dx:DXStackLayout ItemSpacing="16">
+            <!-- Rejection note banner -->
+            <Border x:Name="rejectionBanner" BackgroundColor="#FFF3F3" Stroke="#FFCDD2"
+                    StrokeShape="RoundRectangle 8" Padding="12" IsVisible="False">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Rejection Note" FontAttributes="Bold" FontSize="13" TextColor="#D32F2F" />
+                    <Label x:Name="rejectionNoteLabel" FontSize="13" TextColor="#B71C1C" />
+                </VerticalStackLayout>
+            </Border>
+
+            <dx:TextEdit
+                x:Name="projectLabel"
+                LabelText="Project"
+                IsReadOnly="True" />
+
+            <dx:TextEdit
+                x:Name="taskLabel"
+                LabelText="Task"
+                IsReadOnly="True" />
+
+            <dx:NumericEdit
+                x:Name="hoursEdit"
+                LabelText="Hours"
+                MinValue="0.25"
+                MaxValue="24"
+                StepValue="0.25" />
+
+            <dx:TextEdit
+                x:Name="noteEdit"
+                LabelText="Note"
+                PlaceholderText="Optional note" />
+
+            <dx:DXButton
+                Content="Save &amp; Resubmit as Draft"
+                Clicked="OnSaveClicked" />
+        </dx:DXStackLayout>
+    </ScrollView>
+</ContentPage>

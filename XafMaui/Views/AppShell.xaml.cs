@@ -11,6 +11,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ClientDetailPage), typeof(ClientDetailPage));
         Routing.RegisterRoute(nameof(ProjectDetailPage), typeof(ProjectDetailPage));
         Routing.RegisterRoute(nameof(AddTimeEntryPage), typeof(AddTimeEntryPage));
+        Routing.RegisterRoute(nameof(EditTimeEntryPage), typeof(EditTimeEntryPage));
     }
 
     async void OnLogoutClicked(object? sender, EventArgs e)

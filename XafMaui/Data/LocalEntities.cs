@@ -62,6 +62,7 @@ public class LocalTimeEntry
     public decimal Hours { get; set; }
     public string? Note { get; set; }
     public int Status { get; set; }
+    public string? ReviewNote { get; set; }
     public int ProjectTaskID { get; set; }
     public string? ProjectTaskName { get; set; }
     public string? ProjectName { get; set; }

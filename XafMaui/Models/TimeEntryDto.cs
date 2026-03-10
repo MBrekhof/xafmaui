@@ -7,6 +7,7 @@ public class TimeEntryDto
     public decimal Hours { get; set; }
     public string? Note { get; set; }
     public TimeEntryStatus Status { get; set; }
+    public string? ReviewNote { get; set; }
     public int ProjectTaskID { get; set; }
     public TimeEntryProjectTaskDto? ProjectTask { get; set; }
 }

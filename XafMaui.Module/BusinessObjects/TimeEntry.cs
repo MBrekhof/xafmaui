@@ -14,6 +14,7 @@ public class TimeEntry : BaseObjectInt
     public virtual decimal Hours { get; set; }
     public virtual string? Note { get; set; }
     public virtual TimeEntryStatus Status { get; set; }
+    public virtual string? ReviewNote { get; set; }
 
     public virtual ApplicationUser? User { get; set; }
     public virtual ProjectTask? ProjectTask { get; set; }

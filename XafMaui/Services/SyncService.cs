@@ -96,6 +96,7 @@ public class SyncService
                 ["Hours"] = entry.Hours,
                 ["Note"] = entry.Note,
                 ["Status"] = ((TimeEntryStatus)entry.Status).ToString(),
+                ["ReviewNote"] = entry.ReviewNote,
                 ["ProjectTask@odata.bind"] = $"ProjectTask({entry.ProjectTaskID})",
             };
 
@@ -131,7 +132,7 @@ public class SyncService
                 db.TimeEntries.Add(new LocalTimeEntry
                 {
                     ServerID = e.ID, Date = e.Date, Hours = e.Hours, Note = e.Note,
-                    Status = (int)e.Status, ProjectTaskID = e.ProjectTaskID,
+                    Status = (int)e.Status, ReviewNote = e.ReviewNote, ProjectTaskID = e.ProjectTaskID,
                     ProjectTaskName = e.ProjectTask?.Name,
                     ProjectName = e.ProjectTask?.Project?.Name,
                     IsPendingSync = false,
