@@ -50,6 +50,14 @@ public class ApiClient
         return await response.Content.ReadFromJsonAsync<T>(JsonOptions);
     }
 
+    public async Task<T?> PostAsync<T>(string odataPath, object payload)
+    {
+        await EnsureAuthHeaderAsync();
+        var response = await _http.PostAsJsonAsync($"{ApiConfig.BaseUrl}/api/odata/{odataPath}", payload, JsonOptions);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<T>(JsonOptions);
+    }
+
     public async Task PutAsync<T>(string odataPath, int id, T entity)
     {
         await EnsureAuthHeaderAsync();

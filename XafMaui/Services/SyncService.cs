@@ -89,22 +89,26 @@ public class SyncService
 
         foreach (var entry in pending)
         {
-            var dto = new TimeEntryDto
+            // XAF OData requires @odata.bind for navigation properties
+            var payload = new Dictionary<string, object?>
             {
-                Date = entry.Date, Hours = entry.Hours, Note = entry.Note,
-                Status = (TimeEntryStatus)entry.Status, ProjectTaskID = entry.ProjectTaskID,
+                ["Date"] = entry.Date.ToString("yyyy-MM-ddTHH:mm:ssZ"),
+                ["Hours"] = entry.Hours,
+                ["Note"] = entry.Note,
+                ["Status"] = ((TimeEntryStatus)entry.Status).ToString(),
+                ["ProjectTask@odata.bind"] = $"ProjectTask({entry.ProjectTaskID})",
             };
 
             if (entry.ServerID == null)
             {
-                var created = await _api.PostAsync("TimeEntry", dto);
+                var created = await _api.PostAsync<TimeEntryDto>("TimeEntry", payload);
                 if (created != null)
                     entry.ServerID = created.ID;
             }
             else
             {
-                dto.ID = entry.ServerID.Value;
-                await _api.PutAsync("TimeEntry", dto.ID, dto);
+                payload["ID"] = entry.ServerID.Value;
+                await _api.PutAsync("TimeEntry", entry.ServerID.Value, payload);
             }
             entry.IsPendingSync = false;
         }
