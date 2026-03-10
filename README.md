@@ -1,5 +1,7 @@
 # XafMaui — Project Administration MVP
 
+![XafMaui Architecture](maui1.png)
+
 A project administration system combining **DevExpress XAF Blazor Server** (back-office) with a **.NET MAUI** mobile companion app.
 
 ## What is this?
