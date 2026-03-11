@@ -90,4 +90,4 @@ docs/plans/                # Design docs and implementation plans
 
 ## License
 
-Private project. DevExpress licenses required.
+MIT license. DevExpress licenses required.
