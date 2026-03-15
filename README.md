@@ -1,4 +1,4 @@
-# XafMaui — Project Administration MVP
+# XafMaui - Project Administration MVP
 
 ![XafMaui Architecture](maui1.png)
 
@@ -7,10 +7,20 @@ A project administration system combining **DevExpress XAF Blazor Server** (back
 ## What is this?
 
 A realistic MVP for a consulting/services firm:
-- **Clients** — company info, contacts, addresses
-- **Projects** — tasks, team assignments, hour budgets
-- **Time Tracking** — consultants log hours against project tasks
-- **Reporting** — project progress, budget burn, weekly hours
+- **Clients** - company info, contacts, addresses
+- **Projects** - tasks, team assignments, hour budgets
+- **Time Tracking** - consultants log hours against project tasks
+- **Reporting** - project progress, budget burn, weekly hours
+
+## Current Status
+
+Phase 8 manual verification is complete.
+
+- Light/dark mode persistence verified after app restart
+- `ReportDataV2` exposure verified through the XAF Web API
+- MAUI dynamic report picker verified with report download flow
+- Report parameter UI verified for predefined reports
+- Custom `Customer` report created in XAF Blazor and executed successfully in the .NET MAUI app
 
 ## Architecture
 
@@ -49,9 +59,9 @@ dotnet build XafMaui.Xaf.slnx
 dotnet run --project XafMaui.Blazor.Server
 ```
 
-The app auto-creates the database and seeds test users on first run (Admin, Manager, Consultant, Office — all with empty passwords).
+The app auto-creates the database and seeds test users on first run (`Admin`, `Manager`, `Consultant`, `Office` - all with empty passwords).
 
-API docs available at `/scalar`.
+API docs are available at `/scalar`.
 
 ### 3. Run the MAUI app
 
@@ -72,9 +82,9 @@ Deploy to an Android emulator or device.
 
 ## Project Structure
 
-```
-XafMaui.slnx              # MAUI-only solution
-XafMaui.Xaf.slnx          # XAF Blazor Server solution
+```text
+XafMaui.slnx               # MAUI-only solution
+XafMaui.Xaf.slnx           # XAF Blazor Server solution
 XafMaui/                   # .NET MAUI mobile app
 XafMaui.Blazor.Server/     # XAF Blazor Server host
 XafMaui.Module/            # Shared business objects (EF Core)
@@ -83,10 +93,10 @@ docs/plans/                # Design docs and implementation plans
 
 ## Tech Stack
 
-- **DevExpress XAF 25.2.3** — application framework with built-in security, Web API, Blazor UI
-- **DevExpress MAUI 25.2** — DataGrid, Charts, Gauges, CollectionView, Editors
-- **Entity Framework Core** — SQL Server (server), SQLite (mobile)
-- **Scalar** — API documentation UI
+- **DevExpress XAF 25.2.3** - application framework with built-in security, Web API, Blazor UI
+- **DevExpress MAUI 25.2** - DataGrid, Charts, Gauges, CollectionView, Editors
+- **Entity Framework Core** - SQL Server (server), SQLite (mobile)
+- **Scalar** - API documentation UI
 
 ## License
 
